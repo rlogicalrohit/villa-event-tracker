@@ -5,6 +5,7 @@ import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { User } from './entities/user.entity';
 import { RoleService } from 'src/role/role.service';
+import { MESSAGE } from 'src/common/collection';
 
 @Injectable()
 export class AuthService {
@@ -21,14 +22,14 @@ export class AuthService {
       if (userExists) {
         throw new HttpException({
           status: HttpStatus.BAD_REQUEST,
-          error: 'email already exists',
+          error: MESSAGE.WARNING.EMAIL_ALREADY_EXISTS,
         }, HttpStatus.BAD_REQUEST);
       }
       const roleExists = await this.roleService.findRoleById(roleId);
       if (!roleExists) {
         throw new HttpException({
           status: HttpStatus.BAD_REQUEST,
-          error: 'role not found',
+          error: MESSAGE.WARNING.ROLE_NOT_FOUND,
         }, HttpStatus.BAD_REQUEST);
       }
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -52,7 +53,7 @@ export class AuthService {
           access_token: this.jwtService.sign(payload),
         };
       }
-      throw new HttpException({ status: HttpStatus.UNAUTHORIZED, error: 'invalid credentials' }, HttpStatus.UNAUTHORIZED);
+      throw new HttpException({ status: HttpStatus.UNAUTHORIZED, error: MESSAGE.WARNING.INVALID_CREDENTIALS }, HttpStatus.UNAUTHORIZED);
     } catch (error) {
       console.log('AuthService login [error] : ', error);
       throw new HttpException({
@@ -78,11 +79,11 @@ export class AuthService {
     try {
       const user = await this.userRepository.findOne({ where: { id: userId }, relations: ['role'] });
       if (!user) {
-        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        throw new HttpException(MESSAGE.WARNING.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
       }
       const role = await this.roleService.findRoleById(roleId);
       if (!role) {
-        throw new HttpException('Role not found', HttpStatus.NOT_FOUND);
+        throw new HttpException(MESSAGE.WARNING.ROLE_NOT_FOUND, HttpStatus.NOT_FOUND);
       }
       user.role = role;
       return await this.userRepository.save(user);

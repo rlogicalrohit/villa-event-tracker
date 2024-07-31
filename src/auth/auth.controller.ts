@@ -4,6 +4,7 @@ import { Response } from 'express';
 import { AuthGuard } from './auth.guard';
 import { Permissions } from './permission.decorator';
 import { PermissionsGuard } from './permission.guard';
+import { MESSAGE } from 'src/common/collection';
 
 @Controller('auth')
 export class AuthController {
@@ -16,7 +17,7 @@ export class AuthController {
       res.status(HttpStatus.CREATED).json({
         data: { user },
         status: HttpStatus.CREATED,
-        message: 'User created successfully'
+        message: MESSAGE.SUCCESS.USER_CREATED
       })
     } catch (error: any) {
       console.log('error: ', error);
@@ -35,7 +36,7 @@ export class AuthController {
       res.status(HttpStatus.CREATED).json({
         data: { token },
         status: HttpStatus.CREATED,
-        message: 'User login successfully'
+        message: MESSAGE.SUCCESS.USER_LOGIN
       })
     } catch (error) {
       console.log('login error: ', error.response);
@@ -56,10 +57,10 @@ export class AuthController {
       res.status(HttpStatus.CREATED).json({
         data: { user },
         status: HttpStatus.CREATED,
-        message: 'User role updated successfully'
+        message: MESSAGE.SUCCESS.USER_ROLE_UPDATED
       })
     } catch (error) {
-      console.log('updateUserRole error: ', error.response);
+      console.log('updateUserRole [error]: ', error.response);
       res.status(error.status).json({
         error: error.response.error,
         status: error.status
@@ -68,18 +69,18 @@ export class AuthController {
   }
 
   @Get('users')
-  @UseGuards(AuthGuard, PermissionsGuard)
-  @Permissions('GET_USERS')
+  // @UseGuards(AuthGuard, PermissionsGuard)
+  // @Permissions('GET_USERS')
   async getUsers(@Res() res: Response) {
     try {
       const users = await this.authService.allUsers();
       res.status(HttpStatus.CREATED).json({
         data: { users },
         status: HttpStatus.CREATED,
-        message: 'Users fetched successfully'
+        message: MESSAGE.SUCCESS.USERS_FETCHED
       })
     } catch (error) {
-      console.log('getUsers error: ', error.response);
+      console.log('getUsers [error]: ', error.response);
       res.status(error.status).json({
         error: error.response.error,
         status: error.status

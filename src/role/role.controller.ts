@@ -2,6 +2,7 @@ import { Controller, Post, Body, Param, Put, Get, Res, HttpStatus } from '@nestj
 import { RoleService } from './role.service';
 import { Role } from './entities/role.entity';
 import { Response } from 'express';
+import { MESSAGE } from 'src/common/collection';
 
 @Controller('role')
 export class RoleController {
@@ -27,7 +28,7 @@ export class RoleController {
     try {
       const allRoles = await this.roleService.allRoles();
       res.status(HttpStatus.OK).json({
-        data: { allRoles }, status: HttpStatus.CREATED, message: 'All roles retrieved successfully'
+        data: { allRoles }, status: HttpStatus.CREATED, message: MESSAGE.SUCCESS.ALL_ROLES_FETCHED
       })
     } catch (error) {
       console.log('RoleController allRoles [error] : ', error);
@@ -43,7 +44,7 @@ export class RoleController {
     try {
       const role = this.roleService.addPermissionsToExistingRole(roleId, body.permissionIds);
       res.status(HttpStatus.OK).json({
-        data: { role }, status: HttpStatus.OK, message: 'Role Updated and Permissions added successfully'
+        data: { role }, status: HttpStatus.OK, message: MESSAGE.SUCCESS.ROLE_PERMISSIONS_UPDATED
       })
     } catch (error) {
       res.status(error.status).json({

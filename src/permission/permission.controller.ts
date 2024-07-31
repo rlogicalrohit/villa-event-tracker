@@ -1,7 +1,8 @@
-import { Controller, Post, Body, Param, Put, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, Res, HttpStatus, Get } from '@nestjs/common';
 import { PermissionService } from './permission.service';
 import { Permission } from './entities/permission.entity';
 import { Response } from 'express';
+import { MESSAGE } from 'src/common/collection';
 
 @Controller('permission')
 export class PermissionController {
@@ -14,7 +15,7 @@ export class PermissionController {
       res.status(HttpStatus.CREATED).json({
         data: { permission },
         status: HttpStatus.CREATED,
-        message: 'Permission created successfully'
+        message: MESSAGE.SUCCESS.PERMISSION_CREATED
       })
     } catch (error) {
       res.status(error.status).json({
@@ -24,4 +25,20 @@ export class PermissionController {
     }
   }
 
+  @Get('all')
+  async getAllPermissions(@Res() res: Response) {
+    try {
+      const permissions = await this.permissionService.getAllPermissions();
+      res.status(HttpStatus.OK).json({
+        data: { permissions },
+        status: HttpStatus.OK,
+        message: MESSAGE.SUCCESS.ALL_PERMISSIONS_FETCHED
+      })
+    } catch (error) {
+      res.status(error.status).json({
+        error: error.response.error,
+        status: error.status
+      })
+    }
+  }
 }

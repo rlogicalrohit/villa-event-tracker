@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { Permission } from 'src/permission/entities/permission.entity';
 import { Role } from './entities/role.entity';
+import { MESSAGE } from 'src/common/collection';
 
 @Injectable()
 export class RoleService {
@@ -13,7 +14,7 @@ export class RoleService {
     private readonly permissionRepository: Repository<Permission>,
   ) { }
 
-  async createRole(name: string, permissionIds: any): Promise<Role> {
+  async createRole(name: string, permissionIds: number[]): Promise<Role> {
     try {
       const permissions = await this.permissionRepository.find({
         where: {
@@ -39,7 +40,7 @@ export class RoleService {
       if (!role) {
         throw new HttpException({
           status: HttpStatus.BAD_REQUEST,
-          error: 'role not found',
+          error: MESSAGE.WARNING.ROLE_NOT_FOUND,
         }, HttpStatus.BAD_REQUEST);
       }
       const permissions = await this.permissionRepository.find({

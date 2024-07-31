@@ -24,4 +24,15 @@ export class PermissionService {
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async getAllPermissions(): Promise<Permission[]> {
+    try {
+      return await this.permissionRepository.find();
+    } catch (error) {
+      throw new HttpException({
+        status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
+        error: error.response ? error.response : error.response.error,
+      }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }
