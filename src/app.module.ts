@@ -7,6 +7,7 @@ import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { RoleModule } from './role/role.module';
 import { PermissionModule } from './permission/permission.module';
+import { EventCategoryModule } from './event_category/event_category.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -24,7 +25,7 @@ import { PermissionModule } from './permission/permission.module';
       synchronize: true,
     }),
     inject: [ConfigService],
-  }), AuthModule, RoleModule, PermissionModule],
+  }), AuthModule, RoleModule, PermissionModule, EventCategoryModule],
   controllers: [AppController],
   providers: [AppService],
 })

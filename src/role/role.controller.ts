@@ -3,13 +3,14 @@ import { RoleService } from './role.service';
 import { Role } from './entities/role.entity';
 import { Response } from 'express';
 import { MESSAGE } from 'src/common/collection';
+import { CreateRoleDto } from './dto/create-role.dto';
 
 @Controller('role')
 export class RoleController {
   constructor(private readonly roleService: RoleService) { }
 
   @Post()
-  async createRole(@Body() body: { name: string, permissionIds: number[] }, @Res() res: Response) {
+  async createRole(@Body() body: CreateRoleDto, @Res() res: Response) {
     try {
       const role = await this.roleService.createRole(body.name, body.permissionIds);
       res.status(HttpStatus.CREATED).json({

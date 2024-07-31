@@ -18,5 +18,9 @@ export const MESSAGE = {
         ALL_PERMISSIONS_FETCHED: 'All permissions fetched successfully',
         ALL_ROLES_FETCHED: 'All roles fetched successfully',
         ROLE_PERMISSIONS_UPDATED: 'Role permissions updated successfully',
+        EVENT_CATEGORY_CREATED: 'Event category created successfully',
+        EVENT_CATEGORIES_FETCHED: 'Event categories fetched successfully',
+        EVENT_CATEGORY_UPDATED: 'Event category updated successfully',
+        EVENT_CATEGORY_DELETED: 'Event category deleted successfully',
     }
 }       

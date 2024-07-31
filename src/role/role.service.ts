@@ -24,9 +24,10 @@ export class RoleService {
       const role = this.roleRepository.create({ name, permissions });
       return await this.roleRepository.save(role);
     } catch (error) {
+      console.log('error: ', error);
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.response.error,
+        error: error.response ? error.response : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
@@ -53,7 +54,7 @@ export class RoleService {
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.response.error,
+        error: error.response ? error.response : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
@@ -64,7 +65,7 @@ export class RoleService {
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.response.error,
+        error: error.response ? error.response : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }

@@ -39,7 +39,7 @@ export class AuthService {
       console.log('AuthService register [error] : ', error);
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.response.error,
+        error: error.response ? error.response : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
@@ -58,7 +58,7 @@ export class AuthService {
       console.log('AuthService login [error] : ', error);
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.response.error,
+        error: error.response ? error.response : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
@@ -70,7 +70,7 @@ export class AuthService {
       console.log('AuthService findUserbyEmail [error] : ', error);
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.response.error,
+        error: error.response ? error.response : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
@@ -91,7 +91,7 @@ export class AuthService {
       console.log('AuthService updateUserRole [error] : ', error);
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.response.error,
+        error: error.response ? error.response : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
@@ -112,7 +112,7 @@ export class AuthService {
       console.log('AuthService findUserById [error] : ', error);
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.response.error,
+        error: error.response ? error.response : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
@@ -123,7 +123,7 @@ export class AuthService {
       console.log('AuthService allUsers [error] : ', error);
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.response.error,
+        error: error.response ? error.response : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
