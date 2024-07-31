@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
 import { Role } from 'src/role/entities/role.entity';
@@ -13,28 +13,15 @@ export class PermissionService {
     private readonly roleRepository: Repository<Role>,
   ) { }
 
-  async createPermission(name: string): Promise<Permission> {
-    const permission = this.permissionRepository.create({ name });
-    return await this.permissionRepository.save(permission);
+  async createPermission(name: string, label: string): Promise<Permission> {
+    try {
+      const permission = this.permissionRepository.create({ name, label });
+      return await this.permissionRepository.save(permission);
+    } catch (error) {
+      throw new HttpException({
+        status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
+        error: error.response ? error.response : error.response.error,
+      }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
-
-  // async addRolesToPermission(permissionId: number, roleIds: number[]): Promise<Permission> {
-  //   const permission = await this.permissionRepository.findOne({
-  //     where: { id: permissionId },
-  //     relations: ['roles'],
-  //   });
-
-  //   if (!permission) {
-  //     throw new Error('Permission not found');
-  //   }
-
-  //   const roles = await this.roleRepository.find({
-  //     where: {
-  //       id: In(roleIds),
-  //     },
-  //   });
-
-  //   permission.roles = roles;
-  //   return await this.permissionRepository.save(permission);
-  // }
 }

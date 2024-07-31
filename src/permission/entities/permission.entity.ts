@@ -7,6 +7,9 @@ export class Permission {
   id: number;
 
   @Column()
+  label: string;
+
+  @Column()
   name: string;
 
   @ManyToMany(() => Role, role => role.permissions)
