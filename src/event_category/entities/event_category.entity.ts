@@ -4,7 +4,7 @@ import { CommonEntity } from 'src/common/common.entity';
 @Entity()
 export class EventCategory extends CommonEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: number;
+    id: string;
 
     @Column({ unique: true })
     name: string;

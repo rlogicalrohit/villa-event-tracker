@@ -9,7 +9,7 @@ import { CreateEventCategoryDto } from './dto/create-event_category.dto';
 export class EventCategoryController {
   constructor(private readonly eventCategoryService: EventCategoryService) { }
 
-  @Post()
+  @Post('add')
   async createEventCategory(@Body() eventCategory: CreateEventCategoryDto, @Res() res: Response) {
     try {
       const eventCategoryExist = await this.eventCategoryService.findEventByName(eventCategory.name);
@@ -33,7 +33,7 @@ export class EventCategoryController {
     }
   }
 
-  @Get()
+  @Get('all')
   async findAllEventCategory(@Res() res: Response) {
     try {
       const eventCategories = await this.eventCategoryService.findAllEventCategory();
@@ -50,8 +50,8 @@ export class EventCategoryController {
     }
   }
 
-  @Get(':id')
-  async findOneEventCategory(@Param('id') id: number, @Res() res: Response) {
+  @Get('get/:id')
+  async findOneEventCategory(@Param('id') id: string, @Res() res: Response) {
     try {
       const eventCategory = await this.eventCategoryService.findOneEventCategory(id);
       if (!eventCategory) {
@@ -73,9 +73,9 @@ export class EventCategoryController {
     }
   }
 
-  @Put(':id')
+  @Put('update/:id')
   async updateEventCategory(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() updateData: CreateEventCategoryDto,
     @Res() res: Response) {
     try {
@@ -100,8 +100,8 @@ export class EventCategoryController {
     }
   }
 
-  @Delete(':id')
-  async removeEventCategory(@Param('id',) id: number, @Res() res: Response) {
+  @Delete('delete/:id')
+  async removeEventCategory(@Param('id',) id: string, @Res() res: Response) {
     try {
       const eventCategory = await this.eventCategoryService.findOneEventCategory(id);
       if (!eventCategory) {

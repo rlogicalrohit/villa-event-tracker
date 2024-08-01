@@ -1,19 +1,21 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { EventCategory } from './entities/event_category.entity';
+import { HallManagement } from './entities/hall_management.entity';
+import { CreateHallManagementDto } from './dto/create-hall_management.dto';
+import { UpdateHallManagementDto } from './dto/update-hall_management.dto';
 
 @Injectable()
-export class EventCategoryService {
+export class HallManagementService {
   constructor(
-    @InjectRepository(EventCategory)
-    private readonly eventCategoryRepository: Repository<EventCategory>,
+    @InjectRepository(HallManagement)
+    private readonly hallRepository: Repository<HallManagement>,
   ) { }
 
-  async createEventCategory(eventCategory: Partial<EventCategory>): Promise<EventCategory> {
+  createHall(createHallDto: CreateHallManagementDto): Promise<HallManagement> {
     try {
-      const newCategory = this.eventCategoryRepository.create(eventCategory);
-      return await this.eventCategoryRepository.save(newCategory);
+      const newHall = this.hallRepository.create(createHallDto);
+      return this.hallRepository.save(newHall);
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
@@ -22,9 +24,9 @@ export class EventCategoryService {
     }
   }
 
-  async findAllEventCategory(): Promise<EventCategory[]> {
+  async findAllHall(): Promise<HallManagement[]> {
     try {
-      return await this.eventCategoryRepository.find();
+      return await this.hallRepository.find();
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
@@ -33,9 +35,10 @@ export class EventCategoryService {
     }
   }
 
-  async findOneEventCategory(id: string): Promise<EventCategory> {
+  findOneHall(id: string): Promise<HallManagement> {
     try {
-      return await this.eventCategoryRepository.findOne({ where: { id } });
+      return this.hallRepository.findOne({ where: { id } });
+
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
@@ -44,10 +47,10 @@ export class EventCategoryService {
     }
   }
 
-  async updateEventCategory(id: string, updateData: Partial<EventCategory>): Promise<EventCategory> {
+  async updateHall(id: string, updateHallDto: UpdateHallManagementDto): Promise<HallManagement> {
     try {
-      await this.eventCategoryRepository.update(id, updateData);
-      return await this.eventCategoryRepository.findOne({ where: { id } });
+      await this.hallRepository.update(id, updateHallDto);
+      return this.hallRepository.findOne({ where: { id } });
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
@@ -56,9 +59,9 @@ export class EventCategoryService {
     }
   }
 
-  async removeEventCategory(id: string): Promise<void> {
+  async removeHall(id: string): Promise<void> {
     try {
-      await this.eventCategoryRepository.delete(id);
+      await this.hallRepository.delete(id);
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
@@ -67,9 +70,9 @@ export class EventCategoryService {
     }
   }
 
-  async findEventByName(name: string): Promise<EventCategory> {
+  async findOneHallByname(name: string): Promise<HallManagement> {
     try {
-      return await this.eventCategoryRepository.findOne({ where: { name } });
+      return await this.hallRepository.findOne({ where: { name } });
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
@@ -78,4 +81,3 @@ export class EventCategoryService {
     }
   }
 }
-

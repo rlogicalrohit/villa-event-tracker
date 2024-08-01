@@ -6,7 +6,9 @@ export const MESSAGE = {
         PERMISSION_NOT_FOUND: 'Permission not found',
         INVALID_CREDENTIALS: 'Invalid credentials',
         EVENT_CATEGORY_NOT_FOUND: 'Event category not found',
-        EVENT_CATEGORY_EXIST: 'Event category already exists'
+        EVENT_CATEGORY_EXIST: 'Event category already exists',
+        HALL_ALREADY_EXIST: 'Hall already exists',
+        HALL_NOT_FOUND: 'Hall not found',
     },
     SUCCESS: {
         ROLE_CREATED: 'Role created successfully',
@@ -24,5 +26,10 @@ export const MESSAGE = {
         EVENT_CATEGORIES_FETCHED: 'Event categories fetched successfully',
         EVENT_CATEGORY_UPDATED: 'Event category updated successfully',
         EVENT_CATEGORY_DELETED: 'Event category deleted successfully',
+        HALL_ADDED: 'Hall added successfully',
+        ALL_HALLS_FETCHED: 'All halls fetched successfully',
+        HALL_FETCHED: 'Hall fetched successfully',
+        HALL_UPDATED: 'Hall updated successfully',
+        HALL_DELETED: 'Hall deleted successfully',
     }
 }       
