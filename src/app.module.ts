@@ -9,6 +9,7 @@ import { RoleModule } from './role/role.module';
 import { PermissionModule } from './permission/permission.module';
 import { EventCategoryModule } from './event_category/event_category.module';
 import { HallManagementModule } from './hall_management/hall_management.module';
+import { PackageManagementModule } from './package_management/package_management.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -26,7 +27,7 @@ import { HallManagementModule } from './hall_management/hall_management.module';
       synchronize: true,
     }),
     inject: [ConfigService],
-  }), AuthModule, RoleModule, PermissionModule, EventCategoryModule, HallManagementModule],
+  }), AuthModule, RoleModule, PermissionModule, EventCategoryModule, HallManagementModule, PackageManagementModule],
   controllers: [AppController],
   providers: [AppService],
 })

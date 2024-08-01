@@ -9,6 +9,8 @@ export const MESSAGE = {
         EVENT_CATEGORY_EXIST: 'Event category already exists',
         HALL_ALREADY_EXIST: 'Hall already exists',
         HALL_NOT_FOUND: 'Hall not found',
+        PACKAGE_ALREADY_EXISTS: 'Package already exists',
+        PACKAGE_NOT_FOUND: 'Package not found',
     },
     SUCCESS: {
         ROLE_CREATED: 'Role created successfully',
@@ -31,5 +33,11 @@ export const MESSAGE = {
         HALL_FETCHED: 'Hall fetched successfully',
         HALL_UPDATED: 'Hall updated successfully',
         HALL_DELETED: 'Hall deleted successfully',
+        PACKAGE_ADDED: 'Package added successfully',
+        PACKAGES_FETCHED: 'Packages fetched successfully',
+        PACKAGE_UPDATED: 'Package updated successfully',
+        PACKAGE_DELETED : 'Package deleted successfully',
+        PACKAGE_FETCHED: 'Package fetched successfully'
+
     }
 }       
