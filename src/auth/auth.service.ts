@@ -118,7 +118,11 @@ export class AuthService {
   }
   async allUsers(): Promise<User[]> {
     try {
-      return await this.userRepository.find();
+      return await this.userRepository.find({
+        relations: {
+          role: true
+        }
+      });
     } catch (error) {
       console.log('AuthService allUsers [error] : ', error);
       throw new HttpException({
