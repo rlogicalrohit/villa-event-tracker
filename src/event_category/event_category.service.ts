@@ -10,7 +10,7 @@ export class EventCategoryService {
     private readonly eventCategoryRepository: Repository<EventCategory>,
   ) { }
 
-  async create(eventCategory: Partial<EventCategory>): Promise<EventCategory> {
+  async createEventCategory(eventCategory: Partial<EventCategory>): Promise<EventCategory> {
     try {
       const newCategory = this.eventCategoryRepository.create(eventCategory);
       return await this.eventCategoryRepository.save(newCategory);
@@ -22,7 +22,7 @@ export class EventCategoryService {
     }
   }
 
-  async findAll(): Promise<EventCategory[]> {
+  async findAllEventCategory(): Promise<EventCategory[]> {
     try {
       return await this.eventCategoryRepository.find();
     } catch (error) {
@@ -33,7 +33,7 @@ export class EventCategoryService {
     }
   }
 
-  async findOne(id: number): Promise<EventCategory> {
+  async findOneEventCategory(id: number): Promise<EventCategory> {
     try {
       return await this.eventCategoryRepository.findOne({ where: { id } });
     } catch (error) {
@@ -44,7 +44,7 @@ export class EventCategoryService {
     }
   }
 
-  async update(id: number, updateData: Partial<EventCategory>): Promise<EventCategory> {
+  async updateEventCategory(id: number, updateData: Partial<EventCategory>): Promise<EventCategory> {
     try {
       await this.eventCategoryRepository.update(id, updateData);
       return await this.eventCategoryRepository.findOne({ where: { id } });
@@ -56,9 +56,20 @@ export class EventCategoryService {
     }
   }
 
-  async remove(id: number): Promise<void> {
+  async removeEventCategory(id: number): Promise<void> {
     try {
       await this.eventCategoryRepository.delete(id);
+    } catch (error) {
+      throw new HttpException({
+        status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
+        error: error.response ? error.response : error.message,
+      }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async findEventByName(name: string): Promise<EventCategory> {
+    try {
+      return await this.eventCategoryRepository.findOne({ where: { name } });
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,

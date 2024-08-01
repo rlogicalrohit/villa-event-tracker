@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, Res, HttpStatus, HttpException } from '@nestjs/common';
 import { EventCategoryService } from './event_category.service';
 import { EventCategory } from './entities/event_category.entity';
 import { Response } from 'express';
@@ -10,9 +10,16 @@ export class EventCategoryController {
   constructor(private readonly eventCategoryService: EventCategoryService) { }
 
   @Post()
-  async create(@Body() eventCategory: CreateEventCategoryDto, @Res() res: Response) {
+  async createEventCategory(@Body() eventCategory: CreateEventCategoryDto, @Res() res: Response) {
     try {
-      const eventCategoryDetail = await this.eventCategoryService.create(eventCategory);
+      const eventCategoryExist = await this.eventCategoryService.findEventByName(eventCategory.name);
+      if (eventCategoryExist) {
+        throw new HttpException({
+          status: HttpStatus.BAD_REQUEST,
+          error: MESSAGE.WARNING.EVENT_CATEGORY_EXIST
+        }, HttpStatus.BAD_REQUEST);
+      }
+      const eventCategoryDetail = await this.eventCategoryService.createEventCategory(eventCategory);
       res.status(HttpStatus.CREATED).json({
         data: { eventCategoryDetail },
         status: HttpStatus.CREATED,
@@ -27,9 +34,9 @@ export class EventCategoryController {
   }
 
   @Get()
-  async findAll(@Res() res: Response) {
+  async findAllEventCategory(@Res() res: Response) {
     try {
-      const eventCategories = await this.eventCategoryService.findAll();
+      const eventCategories = await this.eventCategoryService.findAllEventCategory();
       res.status(HttpStatus.OK).json({
         data: { eventCategories },
         status: HttpStatus.OK,
@@ -44,9 +51,15 @@ export class EventCategoryController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number, @Res() res: Response) {
+  async findOneEventCategory(@Param('id') id: number, @Res() res: Response) {
     try {
-      const eventCategory = await this.eventCategoryService.findOne(id);
+      const eventCategory = await this.eventCategoryService.findOneEventCategory(id);
+      if (!eventCategory) {
+        throw new HttpException({
+          status: HttpStatus.NOT_FOUND,
+          error: MESSAGE.WARNING.EVENT_CATEGORY_NOT_FOUND
+        }, HttpStatus.NOT_FOUND);
+      }
       res.status(HttpStatus.OK).json({
         data: { eventCategory },
         status: HttpStatus.OK,
@@ -61,12 +74,19 @@ export class EventCategoryController {
   }
 
   @Put(':id')
-  async update(
+  async updateEventCategory(
     @Param('id') id: number,
     @Body() updateData: CreateEventCategoryDto,
     @Res() res: Response) {
     try {
-      const updatedEventCategory = await this.eventCategoryService.update(id, updateData);
+      const eventCategory = await this.eventCategoryService.findOneEventCategory(id);
+      if (!eventCategory) {
+        throw new HttpException({
+          status: HttpStatus.NOT_FOUND,
+          error: MESSAGE.WARNING.EVENT_CATEGORY_NOT_FOUND
+        }, HttpStatus.NOT_FOUND);
+      }
+      const updatedEventCategory = await this.eventCategoryService.updateEventCategory(id, updateData);
       res.status(HttpStatus.OK).json({
         data: { updatedEventCategory },
         status: HttpStatus.OK,
@@ -81,9 +101,16 @@ export class EventCategoryController {
   }
 
   @Delete(':id')
-  async remove(@Param('id',) id: number, @Res() res: Response) {
+  async removeEventCategory(@Param('id',) id: number, @Res() res: Response) {
     try {
-      await this.eventCategoryService.remove(id);
+      const eventCategory = await this.eventCategoryService.findOneEventCategory(id);
+      if (!eventCategory) {
+        throw new HttpException({
+          status: HttpStatus.NOT_FOUND,
+          error: MESSAGE.WARNING.EVENT_CATEGORY_NOT_FOUND
+        }, HttpStatus.NOT_FOUND);
+      }
+      await this.eventCategoryService.removeEventCategory(id);
       res.status(HttpStatus.OK).json({
         data: {},
         status: HttpStatus.OK,

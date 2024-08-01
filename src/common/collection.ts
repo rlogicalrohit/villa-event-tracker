@@ -4,7 +4,9 @@ export const MESSAGE = {
         USER_NOT_FOUND: 'User not found',
         EMAIL_ALREADY_EXISTS: 'Email already exists',
         PERMISSION_NOT_FOUND: 'Permission not found',
-        INVALID_CREDENTIALS: 'Invalid credentials'
+        INVALID_CREDENTIALS: 'Invalid credentials',
+        EVENT_CATEGORY_NOT_FOUND: 'Event category not found',
+        EVENT_CATEGORY_EXIST: 'Event category already exists'
     },
     SUCCESS: {
         ROLE_CREATED: 'Role created successfully',
