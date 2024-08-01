@@ -16,7 +16,9 @@ export const MESSAGE = {
         DISCOUNT_CODE_ALREADY_EXIST: 'Discount Code already exists',
         DISCOUNT_NOT_FOUND: 'Discount not found',
         MENU_GROUP_ALREADY_EXISTS: 'Menu group already exists',
-        MENU_GROUP_NOT_FOUND: 'Menu group not found'
+        MENU_GROUP_NOT_FOUND: 'Menu group not found',
+        MENU_CATEGORY_ALREADY_EXISTS: 'Menu category already exists',
+        MENU_CATEGORY_NOT_FOUND: 'Menu category not found',
     },
     SUCCESS: {
         ROLE_CREATED: 'Role created successfully',
@@ -58,7 +60,12 @@ export const MESSAGE = {
         MENU_GROUPS_FETCHED: 'Menu groups fetched successfully',
         MENU_GROUP_FETCHED: 'Menu group fetched successfully',
         MENU_GROUP_UPDATED: 'Menu group updated successfully',
-        MENU_GROUP_DELETED: 'Menu group deleted successfully'
+        MENU_GROUP_DELETED: 'Menu group deleted successfully',
+        MENU_CATEGORY_ADDED: 'Menu category added successfully',
+        MENU_CATEGORIES_FETCHED: 'Menu categories fetched successfully',
+        MENU_CATEGORY_FETCHED: 'Menu category fetched successfully',
+        MENU_CATEGORY_UPDATED: 'Menu category updated successfully',
+        MENU_CATEGORY_DELETED: 'Menu category deleted successfully',
 
     }
 }       

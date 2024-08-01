@@ -13,6 +13,7 @@ import { PackageManagementModule } from './package_management/package_management
 import { AdditionalServiceModule } from './additional_service/additional_service.module';
 import { DiscountManagementModule } from './discount_management/discount_management.module';
 import { MenuGroupManagementModule } from './menu-group_management/menu-group_management.module';
+import { MenuCategoryManagementModule } from './menu-category_management/menu-category_management.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -30,7 +31,7 @@ import { MenuGroupManagementModule } from './menu-group_management/menu-group_ma
       synchronize: true,
     }),
     inject: [ConfigService],
-  }), AuthModule, RoleModule, PermissionModule, EventCategoryModule, HallManagementModule, PackageManagementModule, AdditionalServiceModule, DiscountManagementModule, MenuGroupManagementModule],
+  }), AuthModule, RoleModule, PermissionModule, EventCategoryModule, HallManagementModule, PackageManagementModule, AdditionalServiceModule, DiscountManagementModule, MenuGroupManagementModule, MenuCategoryManagementModule],
   controllers: [AppController],
   providers: [AppService],
 })
