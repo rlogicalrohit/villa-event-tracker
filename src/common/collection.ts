@@ -12,7 +12,9 @@ export const MESSAGE = {
         PACKAGE_ALREADY_EXISTS: 'Package already exists',
         PACKAGE_NOT_FOUND: 'Package not found',
         ADDITIONAL_SERVICE_EXISTS: 'Additional service already exists',
-        ADDITIONAL_SERVICE_NOT_FOUND: 'Additional service not found'
+        ADDITIONAL_SERVICE_NOT_FOUND: 'Additional service not found',
+        DISCOUNT_CODE_ALREADY_EXIST: 'Discount Code already exists',
+        DISCOUNT_NOT_FOUND: 'Discount not found'
     },
     SUCCESS: {
         ROLE_CREATED: 'Role created successfully',
@@ -44,7 +46,12 @@ export const MESSAGE = {
         ADDITIONAL_SERVICES_FETCHED: 'Additional services fetched successfully',
         ADDITIONAL_SERVICE_FETCHED: 'Additional service fetched successfully',
         ADDITIONAL_SERVICE_UPDATED: 'Additional service updated successfully',
-        ADDITIONAL_SERVICE_DELETED: 'Additional service deleted successfully'
+        ADDITIONAL_SERVICE_DELETED: 'Additional service deleted successfully',
+        DISCOUNT_CREATED: 'Discount created successfully',
+        ALL_DISCOUNTS_FETCHED: 'All discounts fetched successfully',
+        DISCOUNT_FETCHED: 'Discount fetched successfully',
+        DISCOUNT_UPDATED: 'Discount updated successfully',
+        DISCOUNT_DELETED: 'Discount deleted successfully'
 
     }
 }       
