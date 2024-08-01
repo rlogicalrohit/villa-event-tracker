@@ -14,7 +14,9 @@ export const MESSAGE = {
         ADDITIONAL_SERVICE_EXISTS: 'Additional service already exists',
         ADDITIONAL_SERVICE_NOT_FOUND: 'Additional service not found',
         DISCOUNT_CODE_ALREADY_EXIST: 'Discount Code already exists',
-        DISCOUNT_NOT_FOUND: 'Discount not found'
+        DISCOUNT_NOT_FOUND: 'Discount not found',
+        MENU_GROUP_ALREADY_EXISTS: 'Menu group already exists',
+        MENU_GROUP_NOT_FOUND: 'Menu group not found'
     },
     SUCCESS: {
         ROLE_CREATED: 'Role created successfully',
@@ -51,7 +53,12 @@ export const MESSAGE = {
         ALL_DISCOUNTS_FETCHED: 'All discounts fetched successfully',
         DISCOUNT_FETCHED: 'Discount fetched successfully',
         DISCOUNT_UPDATED: 'Discount updated successfully',
-        DISCOUNT_DELETED: 'Discount deleted successfully'
+        DISCOUNT_DELETED: 'Discount deleted successfully',
+        MENU_GROUP_ADDED: 'Menu group added successfully',
+        MENU_GROUPS_FETCHED: 'Menu groups fetched successfully',
+        MENU_GROUP_FETCHED: 'Menu group fetched successfully',
+        MENU_GROUP_UPDATED: 'Menu group updated successfully',
+        MENU_GROUP_DELETED: 'Menu group deleted successfully'
 
     }
 }       

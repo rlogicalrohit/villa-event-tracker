@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity('additional_service_management')
 export class AdditionalService {
 
     @PrimaryGeneratedColumn('uuid')
