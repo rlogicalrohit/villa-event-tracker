@@ -10,6 +10,8 @@ import { PermissionModule } from './permission/permission.module';
 import { EventCategoryModule } from './event_category/event_category.module';
 import { HallManagementModule } from './hall_management/hall_management.module';
 import { PackageManagementModule } from './package_management/package_management.module';
+import { AdditionalServiceModule } from './additional_service/additional_service.module';
+import { DiscountManagementModule } from './discount_management/discount_management.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -27,7 +29,7 @@ import { PackageManagementModule } from './package_management/package_management
       synchronize: true,
     }),
     inject: [ConfigService],
-  }), AuthModule, RoleModule, PermissionModule, EventCategoryModule, HallManagementModule, PackageManagementModule],
+  }), AuthModule, RoleModule, PermissionModule, EventCategoryModule, HallManagementModule, PackageManagementModule, AdditionalServiceModule, DiscountManagementModule],
   controllers: [AppController],
   providers: [AppService],
 })

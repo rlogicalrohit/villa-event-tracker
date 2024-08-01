@@ -11,6 +11,8 @@ export const MESSAGE = {
         HALL_NOT_FOUND: 'Hall not found',
         PACKAGE_ALREADY_EXISTS: 'Package already exists',
         PACKAGE_NOT_FOUND: 'Package not found',
+        ADDITIONAL_SERVICE_EXISTS: 'Additional service already exists',
+        ADDITIONAL_SERVICE_NOT_FOUND: 'Additional service not found'
     },
     SUCCESS: {
         ROLE_CREATED: 'Role created successfully',
@@ -37,7 +39,12 @@ export const MESSAGE = {
         PACKAGES_FETCHED: 'Packages fetched successfully',
         PACKAGE_UPDATED: 'Package updated successfully',
         PACKAGE_DELETED : 'Package deleted successfully',
-        PACKAGE_FETCHED: 'Package fetched successfully'
+        PACKAGE_FETCHED: 'Package fetched successfully',
+        ADDITIONAL_SERVICE_ADDED: 'Additional service added successfully',
+        ADDITIONAL_SERVICES_FETCHED: 'Additional services fetched successfully',
+        ADDITIONAL_SERVICE_FETCHED: 'Additional service fetched successfully',
+        ADDITIONAL_SERVICE_UPDATED: 'Additional service updated successfully',
+        ADDITIONAL_SERVICE_DELETED: 'Additional service deleted successfully'
 
     }
 }       

@@ -110,9 +110,8 @@ export class PackageManagementController {
           error: MESSAGE.WARNING.PACKAGE_NOT_FOUND
         }, HttpStatus.NOT_FOUND);
       }
-      const packageDetail = await this.packageService.removePackage(id);
+      await this.packageService.removePackage(id);
       res.status(HttpStatus.OK).json({
-        data: { packageDetail },
         statusCode: HttpStatus.OK,
         message: MESSAGE.SUCCESS.PACKAGE_DELETED
       })

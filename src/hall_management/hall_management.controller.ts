@@ -111,9 +111,9 @@ export class HallManagementController {
           error: MESSAGE.WARNING.HALL_NOT_FOUND
         }, HttpStatus.NOT_FOUND);
       }
-      const hallDetail = await this.hallService.removeHall(id);
+      await this.hallService.removeHall(id);
       res.status(HttpStatus.OK).json({
-        data: { hallDetail },
+        data: {  },
         statusCode: HttpStatus.OK,
         message: MESSAGE.SUCCESS.HALL_DELETED
       })
