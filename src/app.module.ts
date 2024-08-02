@@ -15,6 +15,7 @@ import { DiscountManagementModule } from './discount_management/discount_managem
 import { MenuGroupManagementModule } from './menu-group_management/menu-group_management.module';
 import { MenuCategoryManagementModule } from './menu-category_management/menu-category_management.module';
 import { AllergyCategoryManagementModule } from './allergy-category_management/allergy-category_management.module';
+import { PositionManagementModule } from './position_management/position_management.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -32,7 +33,7 @@ import { AllergyCategoryManagementModule } from './allergy-category_management/a
       synchronize: true,
     }),
     inject: [ConfigService],
-  }), AuthModule, RoleModule, PermissionModule, EventCategoryModule, HallManagementModule, PackageManagementModule, AdditionalServiceModule, DiscountManagementModule, MenuGroupManagementModule, MenuCategoryManagementModule, AllergyCategoryManagementModule],
+  }), AuthModule, RoleModule, PermissionModule, EventCategoryModule, HallManagementModule, PackageManagementModule, AdditionalServiceModule, DiscountManagementModule, MenuGroupManagementModule, MenuCategoryManagementModule, AllergyCategoryManagementModule, PositionManagementModule],
   controllers: [AppController],
   providers: [AppService],
 })
