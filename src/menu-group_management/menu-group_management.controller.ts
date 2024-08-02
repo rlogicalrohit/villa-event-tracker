@@ -12,13 +12,6 @@ export class MenuGroupManagementController {
   @Post('add')
   async createMenuGroup(@Body() createMenuGroupManagementDto: CreateMenuGroupManagementDto, @Res() res: Response) {
     try {
-      const menuGroupExists = await this.menuGroupManagementService.findMenuGroupByName(createMenuGroupManagementDto.name);
-      if (menuGroupExists) {
-        throw new HttpException({
-          status: HttpStatus.BAD_REQUEST,
-          error: MESSAGE.WARNING.MENU_GROUP_ALREADY_EXISTS
-        }, HttpStatus.BAD_REQUEST);
-      }
       const newMenuGroup = await this.menuGroupManagementService.createMenuGroup(createMenuGroupManagementDto);
       res.status(HttpStatus.CREATED).json({
         statusCode: HttpStatus.CREATED,
@@ -54,12 +47,6 @@ export class MenuGroupManagementController {
   async findOneMenuGroup(@Param('id') id: string, @Res() res: Response) {
     try {
       const menuGroup = await this.menuGroupManagementService.findOneMenuGroup(id);
-      if (!menuGroup) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.MENU_GROUP_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       res.status(HttpStatus.OK).json({
         statusCode: HttpStatus.OK,
         message: MESSAGE.SUCCESS.MENU_GROUP_FETCHED,
@@ -79,13 +66,6 @@ export class MenuGroupManagementController {
     @Body() updateMenuGroupManagementDto: UpdateMenuGroupManagementDto,
     @Res() res: Response) {
     try {
-      const menuGroup = await this.menuGroupManagementService.findOneMenuGroup(id);
-      if (!menuGroup) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.MENU_GROUP_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       const updatedMenuGroup = await this.menuGroupManagementService.updateOneMenuGroup(id, updateMenuGroupManagementDto);
       res.status(HttpStatus.OK).json({
         statusCode: HttpStatus.OK,
@@ -103,13 +83,6 @@ export class MenuGroupManagementController {
   @Delete('delete/:id')
   async removeOneMenuGroup(@Param('id') id: string, @Res() res: Response) {
     try {
-      const menuGroup = await this.menuGroupManagementService.findOneMenuGroup(id);
-      if (!menuGroup) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.MENU_GROUP_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       await this.menuGroupManagementService.removeOneMenuGroup(id);
       res.status(HttpStatus.OK).json({
         data: {},
