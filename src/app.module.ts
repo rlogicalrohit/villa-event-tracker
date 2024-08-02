@@ -14,6 +14,7 @@ import { AdditionalServiceModule } from './additional_service/additional_service
 import { DiscountManagementModule } from './discount_management/discount_management.module';
 import { MenuGroupManagementModule } from './menu-group_management/menu-group_management.module';
 import { MenuCategoryManagementModule } from './menu-category_management/menu-category_management.module';
+import { AllergyCategoryManagementModule } from './allergy-category_management/allergy-category_management.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -31,7 +32,7 @@ import { MenuCategoryManagementModule } from './menu-category_management/menu-ca
       synchronize: true,
     }),
     inject: [ConfigService],
-  }), AuthModule, RoleModule, PermissionModule, EventCategoryModule, HallManagementModule, PackageManagementModule, AdditionalServiceModule, DiscountManagementModule, MenuGroupManagementModule, MenuCategoryManagementModule],
+  }), AuthModule, RoleModule, PermissionModule, EventCategoryModule, HallManagementModule, PackageManagementModule, AdditionalServiceModule, DiscountManagementModule, MenuGroupManagementModule, MenuCategoryManagementModule, AllergyCategoryManagementModule],
   controllers: [AppController],
   providers: [AppService],
 })

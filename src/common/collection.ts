@@ -19,6 +19,8 @@ export const MESSAGE = {
         MENU_GROUP_NOT_FOUND: 'Menu group not found',
         MENU_CATEGORY_ALREADY_EXISTS: 'Menu category already exists',
         MENU_CATEGORY_NOT_FOUND: 'Menu category not found',
+        ALLERGY_CATEGORY_ALREADY_EXISTS: 'Allergy category already exists',
+        ALLERGY_CATEGORY_NOT_FOUND: 'Allergy category not found',
     },
     SUCCESS: {
         ROLE_CREATED: 'Role created successfully',
@@ -66,6 +68,11 @@ export const MESSAGE = {
         MENU_CATEGORY_FETCHED: 'Menu category fetched successfully',
         MENU_CATEGORY_UPDATED: 'Menu category updated successfully',
         MENU_CATEGORY_DELETED: 'Menu category deleted successfully',
+        ALLERGY_CATEGORY_CREATED: 'Allergy category created successfully',
+        ALLERGY_CATEGORIES_FETCHED: 'Allergy categories fetched successfully',
+        ALLERGY_CATEGORY_FETCHED: 'Allergy category fetched successfully',
+        ALLERGY_CATEGORY_UPDATED: 'Allergy category updated successfully',
+        ALLERGY_CATEGORY_DELETED: 'Allergy category deleted successfully',
 
     }
 }       
