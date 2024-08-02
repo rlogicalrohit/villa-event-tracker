@@ -12,13 +12,6 @@ export class EventCategoryController {
   @Post('add')
   async createEventCategory(@Body() eventCategory: CreateEventCategoryDto, @Res() res: Response) {
     try {
-      const eventCategoryExist = await this.eventCategoryService.findEventByName(eventCategory.name);
-      if (eventCategoryExist) {
-        throw new HttpException({
-          status: HttpStatus.BAD_REQUEST,
-          error: MESSAGE.WARNING.EVENT_CATEGORY_EXIST
-        }, HttpStatus.BAD_REQUEST);
-      }
       const eventCategoryDetail = await this.eventCategoryService.createEventCategory(eventCategory);
       res.status(HttpStatus.CREATED).json({
         data: { eventCategoryDetail },
@@ -54,12 +47,6 @@ export class EventCategoryController {
   async findOneEventCategory(@Param('id') id: string, @Res() res: Response) {
     try {
       const eventCategory = await this.eventCategoryService.findOneEventCategory(id);
-      if (!eventCategory) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.EVENT_CATEGORY_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       res.status(HttpStatus.OK).json({
         data: { eventCategory },
         status: HttpStatus.OK,
@@ -79,13 +66,6 @@ export class EventCategoryController {
     @Body() updateData: CreateEventCategoryDto,
     @Res() res: Response) {
     try {
-      const eventCategory = await this.eventCategoryService.findOneEventCategory(id);
-      if (!eventCategory) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.EVENT_CATEGORY_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       const updatedEventCategory = await this.eventCategoryService.updateEventCategory(id, updateData);
       res.status(HttpStatus.OK).json({
         data: { updatedEventCategory },
@@ -103,13 +83,6 @@ export class EventCategoryController {
   @Delete('delete/:id')
   async removeEventCategory(@Param('id',) id: string, @Res() res: Response) {
     try {
-      const eventCategory = await this.eventCategoryService.findOneEventCategory(id);
-      if (!eventCategory) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.EVENT_CATEGORY_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       await this.eventCategoryService.removeEventCategory(id);
       res.status(HttpStatus.OK).json({
         data: {},
