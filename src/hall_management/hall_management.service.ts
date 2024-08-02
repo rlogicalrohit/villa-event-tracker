@@ -19,7 +19,7 @@ export class HallManagementService {
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.message,
+        error: error.response.error ? error.response.error : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
@@ -30,7 +30,7 @@ export class HallManagementService {
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.message,
+        error: error.response.error ? error.response.error : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
@@ -42,7 +42,7 @@ export class HallManagementService {
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.message,
+        error: error.response.error ? error.response.error : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
@@ -54,7 +54,7 @@ export class HallManagementService {
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.message,
+        error: error.response.error ? error.response.error : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
@@ -65,7 +65,7 @@ export class HallManagementService {
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.message,
+        error: error.response.error ? error.response.error : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
@@ -76,7 +76,7 @@ export class HallManagementService {
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
-        error: error.response ? error.response : error.message,
+        error: error.response.error ? error.response.error : error.message,
       }, error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
