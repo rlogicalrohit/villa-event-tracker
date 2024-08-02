@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { PackageManagement } from './entities/package_management.entity';
 import { CreatePackageManagementDto } from './dto/create-package_management.dto';
 import { UpdatePackageManagementDto } from './dto/update-package_management.dto';
+import { MESSAGE } from 'src/common/collection';
 
 @Injectable()
 export class PackageManagementService {
@@ -13,8 +14,15 @@ export class PackageManagementService {
   ) { }
 
   async createPackage(createPackageDto: CreatePackageManagementDto): Promise<PackageManagement> {
-    const newPackage = this.packageRepository.create(createPackageDto);
     try {
+      const packageDetail = await this.findPackageByName(createPackageDto.name);
+      if (packageDetail) {
+        throw new HttpException({
+          status: HttpStatus.BAD_REQUEST,
+          error: MESSAGE.WARNING.PACKAGE_ALREADY_EXISTS
+        }, HttpStatus.BAD_REQUEST);
+      }
+      const newPackage = this.packageRepository.create(createPackageDto);
       return await this.packageRepository.save(newPackage);
     } catch (error) {
       throw new HttpException({
@@ -37,7 +45,14 @@ export class PackageManagementService {
 
   async findOnePackage(id: string): Promise<PackageManagement> {
     try {
-      return await this.packageRepository.findOne({ where: { id } });
+      const packageDetail = await this.packageRepository.findOne({ where: { id } });
+      if (!packageDetail) {
+        throw new HttpException({
+          status: HttpStatus.NOT_FOUND,
+          error: MESSAGE.WARNING.PACKAGE_NOT_FOUND
+        }, HttpStatus.NOT_FOUND);
+      }
+      return packageDetail;
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
@@ -48,6 +63,13 @@ export class PackageManagementService {
 
   async updatePackage(id: string, updatePackageDto: UpdatePackageManagementDto): Promise<PackageManagement> {
     try {
+      const packageDetail = await this.findOnePackage(id);
+      if (!packageDetail) {
+        throw new HttpException({
+          status: HttpStatus.NOT_FOUND,
+          error: MESSAGE.WARNING.PACKAGE_NOT_FOUND
+        }, HttpStatus.NOT_FOUND);
+      }
       await this.packageRepository.update(id, updatePackageDto);
       return await this.packageRepository.findOne({ where: { id } });
     } catch (error) {
@@ -60,8 +82,14 @@ export class PackageManagementService {
 
   async removePackage(id: string): Promise<void> {
     try {
+      const iSpackageDetail = await this.findOnePackage(id);
+      if (!iSpackageDetail) {
+        throw new HttpException({
+          status: HttpStatus.NOT_FOUND,
+          error: MESSAGE.WARNING.PACKAGE_NOT_FOUND
+        }, HttpStatus.NOT_FOUND);
+      }
       await this.packageRepository.delete(id);
-
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,

@@ -12,13 +12,6 @@ export class PackageManagementController {
   @Post('add')
   async createPackage(@Body() createPackageDto: CreatePackageManagementDto, @Res() res: Response) {
     try {
-      const packageDetail = await this.packageService.findPackageByName(createPackageDto.name);
-      if (packageDetail) {
-        throw new HttpException({
-          status: HttpStatus.BAD_REQUEST,
-          error: MESSAGE.WARNING.PACKAGE_ALREADY_EXISTS
-        }, HttpStatus.BAD_REQUEST);
-      }
       const packageData = await this.packageService.createPackage(createPackageDto);
       res.status(HttpStatus.CREATED).json({
         statusCode: HttpStatus.CREATED,
@@ -54,12 +47,6 @@ export class PackageManagementController {
   async findOnePackage(@Param('id') id: string, @Res() res: Response) {
     try {
       const packageDetail = await this.packageService.findOnePackage(id);
-      if (!packageDetail) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.PACKAGE_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       res.status(HttpStatus.OK).json({
         statusCode: HttpStatus.OK,
         message: MESSAGE.SUCCESS.PACKAGE_FETCHED,
@@ -79,13 +66,6 @@ export class PackageManagementController {
     @Body() updatePackageDto: UpdatePackageManagementDto,
     @Res() res: Response) {
     try {
-      const packageDetail = await this.packageService.findOnePackage(id);
-      if (!packageDetail) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.PACKAGE_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       const updatedPackageDetail = await this.packageService.updatePackage(id, updatePackageDto);
       res.status(HttpStatus.OK).json({
         statusCode: HttpStatus.OK,
@@ -103,13 +83,6 @@ export class PackageManagementController {
   @Delete('delete/:id')
   async removeOnePackage(@Param('id') id: string, @Res() res: Response): Promise<void> {
     try {
-      const iSpackageDetail = await this.packageService.findOnePackage(id);
-      if (!iSpackageDetail) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.PACKAGE_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       await this.packageService.removePackage(id);
       res.status(HttpStatus.OK).json({
         statusCode: HttpStatus.OK,
