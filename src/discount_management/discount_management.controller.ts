@@ -12,13 +12,6 @@ export class DiscountManagementController {
   @Post('add')
   async createDiscount(@Body() createDiscountManagementDto: CreateDiscountManagementDto, @Res() res: Response) {
     try {
-      const discount = await this.discountManagementService.findDiscountByCode(createDiscountManagementDto.code);
-      if (discount) {
-        throw new HttpException({
-          status: HttpStatus.BAD_REQUEST,
-          error: MESSAGE.WARNING.DISCOUNT_CODE_ALREADY_EXIST
-        }, HttpStatus.BAD_REQUEST);
-      }
       const discountDetail = await this.discountManagementService.createDiscount(createDiscountManagementDto);
       res.status(HttpStatus.CREATED).json({
         data: { discountDetail },
@@ -54,12 +47,6 @@ export class DiscountManagementController {
   async findOneDiscount(@Param('id') id: string, @Res() res: Response) {
     try {
       const discount = await this.discountManagementService.findOneDiscount(id);
-      if (!discount) {
-        throw new HttpException({
-          status: HttpStatus.BAD_REQUEST,
-          error: MESSAGE.WARNING.DISCOUNT_NOT_FOUND
-        }, HttpStatus.BAD_REQUEST);
-      }
       res.status(HttpStatus.OK).json({
         data: { discount },
         status: HttpStatus.OK,
@@ -79,13 +66,6 @@ export class DiscountManagementController {
     @Body() updateDiscountManagementDto: UpdateDiscountManagementDto,
     @Res() res: Response) {
     try {
-      const discount = await this.discountManagementService.findOneDiscount(id);
-      if (!discount) {
-        throw new HttpException({
-          status: HttpStatus.BAD_REQUEST,
-          error: MESSAGE.WARNING.DISCOUNT_NOT_FOUND
-        }, HttpStatus.BAD_REQUEST);
-      }
       const updatedDiscountDetail = await this.discountManagementService.updateOneDiscount(id, updateDiscountManagementDto);
       res.status(HttpStatus.OK).json({
         data: { updatedDiscountDetail },
@@ -103,13 +83,6 @@ export class DiscountManagementController {
   @Delete('delete/:id')
   async removeOneDiscount(@Param('id') id: string, @Res() res: Response) {
     try {
-      const discount = await this.discountManagementService.findOneDiscount(id);
-      if (!discount) {
-        throw new HttpException({
-          status: HttpStatus.BAD_REQUEST,
-          error: MESSAGE.WARNING.DISCOUNT_NOT_FOUND
-        }, HttpStatus.BAD_REQUEST);
-      }
       await this.discountManagementService.removeOneDiscount(id);
       res.status(HttpStatus.OK).json({
         data: {},
