@@ -12,13 +12,6 @@ export class MenuCategoryManagementController {
   @Post('add')
   async createMenuCategory(@Body() createMenuCategoryManagementDto: CreateMenuCategoryManagementDto, @Res() res: Response) {
     try {
-      const menuCategoryExists = await this.menuCategoryManagementService.findMenuCategoryByName(createMenuCategoryManagementDto.name);
-      if (menuCategoryExists) {
-        throw new HttpException({
-          status: HttpStatus.BAD_REQUEST,
-          error: MESSAGE.WARNING.MENU_CATEGORY_ALREADY_EXISTS
-        }, HttpStatus.BAD_REQUEST);
-      }
       const newMenuCategory = await this.menuCategoryManagementService.createMenuCategory(createMenuCategoryManagementDto);
       res.status(HttpStatus.CREATED).json({
         statusCode: HttpStatus.CREATED,
@@ -54,12 +47,6 @@ export class MenuCategoryManagementController {
   async findOneMenuCategory(@Param('id') id: string, @Res() res: Response) {
     try {
       const menuCategory = await this.menuCategoryManagementService.findOneMenuCategory(id);
-      if (!menuCategory) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.MENU_CATEGORY_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       res.status(HttpStatus.OK).json({
         statusCode: HttpStatus.OK,
         message: MESSAGE.SUCCESS.MENU_CATEGORY_FETCHED,
@@ -79,13 +66,6 @@ export class MenuCategoryManagementController {
     @Body() updateMenuCategoryManagementDto: UpdateMenuCategoryManagementDto,
     @Res() res: Response) {
     try {
-      const menuCategory = await this.menuCategoryManagementService.findOneMenuCategory(id);
-      if (!menuCategory) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.MENU_CATEGORY_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       const updatedMenuCategory = await this.menuCategoryManagementService.updateOneMenuCategory(id, updateMenuCategoryManagementDto);
       res.status(HttpStatus.OK).json({
         statusCode: HttpStatus.OK,
@@ -103,13 +83,6 @@ export class MenuCategoryManagementController {
   @Delete('delete/:id')
   async removeOneMenuCategory(@Param('id') id: string, @Res() res: Response) {
     try {
-      const menuCategory = await this.menuCategoryManagementService.findOneMenuCategory(id);
-      if (!menuCategory) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.MENU_CATEGORY_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       await this.menuCategoryManagementService.removeOneMenuCategory(id);
       res.status(HttpStatus.OK).json({
         data: {},
