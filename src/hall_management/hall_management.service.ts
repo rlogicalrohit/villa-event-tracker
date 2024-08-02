@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { HallManagement } from './entities/hall_management.entity';
 import { CreateHallManagementDto } from './dto/create-hall_management.dto';
 import { UpdateHallManagementDto } from './dto/update-hall_management.dto';
+import { MESSAGE } from 'src/common/collection';
 
 @Injectable()
 export class HallManagementService {
@@ -12,10 +13,17 @@ export class HallManagementService {
     private readonly hallRepository: Repository<HallManagement>,
   ) { }
 
-  createHall(createHallDto: CreateHallManagementDto): Promise<HallManagement> {
+  async createHall(createHallDto: CreateHallManagementDto): Promise<HallManagement> {
     try {
+      const hall = await this.findOneHallByname(createHallDto.name)
+      if (hall) {
+        throw new HttpException({
+          status: HttpStatus.BAD_REQUEST,
+          error: MESSAGE.WARNING.HALL_ALREADY_EXIST
+        }, HttpStatus.BAD_REQUEST);
+      }
       const newHall = this.hallRepository.create(createHallDto);
-      return this.hallRepository.save(newHall);
+      return await this.hallRepository.save(newHall);
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
@@ -35,10 +43,16 @@ export class HallManagementService {
     }
   }
 
-  findOneHall(id: string): Promise<HallManagement> {
+  async findOneHall(id: string): Promise<HallManagement> {
     try {
-      return this.hallRepository.findOne({ where: { id } });
-
+      const hall = await this.hallRepository.findOne({ where: { id } });
+      if (!hall) {
+        throw new HttpException({
+          status: HttpStatus.NOT_FOUND,
+          error: MESSAGE.WARNING.HALL_NOT_FOUND
+        }, HttpStatus.NOT_FOUND);
+      }
+      return hall;
     } catch (error) {
       throw new HttpException({
         status: error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
@@ -49,6 +63,13 @@ export class HallManagementService {
 
   async updateHall(id: string, updateHallDto: UpdateHallManagementDto): Promise<HallManagement> {
     try {
+      const hall = await this.findOneHall(id);
+      if (!hall) {
+        throw new HttpException({
+          status: HttpStatus.NOT_FOUND,
+          error: MESSAGE.WARNING.HALL_NOT_FOUND
+        }, HttpStatus.NOT_FOUND);
+      }
       await this.hallRepository.update(id, updateHallDto);
       return this.hallRepository.findOne({ where: { id } });
     } catch (error) {
@@ -61,6 +82,13 @@ export class HallManagementService {
 
   async removeHall(id: string): Promise<void> {
     try {
+      const hall = await this.findOneHall(id);
+      if (!hall) {
+        throw new HttpException({
+          status: HttpStatus.NOT_FOUND,
+          error: MESSAGE.WARNING.HALL_NOT_FOUND
+        }, HttpStatus.NOT_FOUND);
+      }
       await this.hallRepository.delete(id);
     } catch (error) {
       throw new HttpException({

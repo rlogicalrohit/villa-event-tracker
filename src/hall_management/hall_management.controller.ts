@@ -13,13 +13,6 @@ export class HallManagementController {
   @Post('add')
   async createHall(@Body() createHallDto: CreateHallManagementDto, @Res() res: Response) {
     try {
-      const hall = await this.hallService.findOneHallByname(createHallDto.name)
-      if (hall) {
-        throw new HttpException({
-          status: HttpStatus.BAD_REQUEST,
-          error: MESSAGE.WARNING.HALL_ALREADY_EXIST
-        }, HttpStatus.BAD_REQUEST);
-      }
       const hallDetail = await this.hallService.createHall(createHallDto);
       res.status(HttpStatus.CREATED).json({
         statusCode: HttpStatus.CREATED,
@@ -55,12 +48,6 @@ export class HallManagementController {
   async findOneHall(@Param('id') id: string, @Res() res: Response) {
     try {
       const hall = await this.hallService.findOneHall(id);
-      if (!hall) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.HALL_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       res.status(HttpStatus.OK).json({
         data: { hall },
         status: HttpStatus.OK,
@@ -80,13 +67,6 @@ export class HallManagementController {
     @Body() updateHallDto: UpdateHallManagementDto,
     @Res() res: Response) {
     try {
-      const hall = await this.hallService.findOneHall(id);
-      if (!hall) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.HALL_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       const updatedHallDetail = await this.hallService.updateHall(id, updateHallDto);
       res.status(HttpStatus.OK).json({
         data: { updatedHallDetail },
@@ -104,16 +84,9 @@ export class HallManagementController {
   @Delete('delete/:id')
   async removeHall(@Param('id') id: string, @Res() res: Response) {
     try {
-      const hall = await this.hallService.findOneHall(id);
-      if (!hall) {
-        throw new HttpException({
-          status: HttpStatus.NOT_FOUND,
-          error: MESSAGE.WARNING.HALL_NOT_FOUND
-        }, HttpStatus.NOT_FOUND);
-      }
       await this.hallService.removeHall(id);
       res.status(HttpStatus.OK).json({
-        data: {  },
+        data: {},
         statusCode: HttpStatus.OK,
         message: MESSAGE.SUCCESS.HALL_DELETED
       })
